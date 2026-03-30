@@ -5,7 +5,7 @@ const Marksheet = require("../model/Marksheet")
 const  {RecalculateMarksheet} = require('../utils/calculator')
 const path = require('path')
 
-router.use(express.static(path.join(__dirname,'../views')))
+router.use(express.static(path.join(__dirname, '../view')))
 router.post('/student', async (req, res) => {
   try {
     console.log(req.body)
@@ -54,70 +54,6 @@ router.get('/', async (req, res) => {
 // @desc    Get marksheet view
 // ─────────────────────────────────────────────
 const LOGO = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIbGNtcwIQAABtbnRyUkdCIFhZWiAH4gADABQACQAOAB1hY3NwTVNGVAAAAABzYXdzY3RybAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWhhbmSdkQA9QICwPUB0LIGepSKOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAABxjcHJ0AAABDAAAAAx3dHB0AAABGAAAABRyWFlaAAABLAAAABRnWFlaAAABQAAAABRiWFlaAAABVAAAABRyVFJDAAABaAAAAGBnVFJDAAABaAAAAGBiVFJDAAABaAAAAGBkZXNjAAAAAAAAAAV1UkdCAAAAAAAAAAAAAAAAdGV4dAAAAABDQzAAWFlaIAAAAAAAAPNUAAEAAAABFslYWVogAAAAAAAAb6AAADjyAAADj1hZWiAAAAAAAABilgAAt4kAABjaWFlaIAAAAAAAACSgAAAPhQAAtsRjdXJ2AAAAAAAAACoAAAB8APgBnAJ1A4MEyQZOCBIKGAxiDvQRzxT2GGocLiBDJKwpai5+M+s5sz/WRldNNlR2XBdkHWyGdVZ+jYgskjacq6eMstu+mcrH12Xkd/H5////2wBDAAkGBwgHBgkICAgKCgkLDhcPDg0NDhwUFREXIh4jIyEeICAlKjUtJScyKCAgLj8vMjc5PDw8JC1CRkE6RjU7PDn/wAARCAKKAooDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oAMBAAIRAxEAPwD3+ii";
-router.get("/marksheet/:id",async(req,res)=>{
-  try{
-    console.log("code is running")
-   const student = await Student.findById(req.params.id);
-   if (!student || student.length === 0) {
-     return res.status(404).json({
-       success: false,
-       message: 'No students found',
-     });
-   }
-   console.log(student)
-   const data = {
-        logo: LOGO,
-        session: "2025 - 2026",
-       student: {
-    name: student.student_name,
-    rollNo: student.roll_number,
-    fathersName: student.father_name,
-    mothersName: student.mother_name,
-    classSection: `${student.class} — ${student.section || 'A'}`,
-    dob: student.dob,
-    dobWords: student.dob_in_words,
-    scholarNo: student.scholar_no,
-    aadhaarId: student.aadhar_number,
-    aparId: student.appar_id,
-    samagraId: student.samagra_id,
-    caste: student.caste,
-    diseCode: student.dis_code,
-    promotedTo: 'UKG'
-},
-        // 3 MAIN SUBJECTS FOR LKG-UKG
-        marks: [
-            { subject: "English (First Lang.)", test: 8, half: 17, annual: 48, project: 9 },
-            { subject: "Hindi (Second Lang.)", test: 9, half: 18, annual: 52, project: 9 },
-            { subject: "Mathematics", test: 10, half: 19, annual: 55, project: 10 },
-            {subject: "EVS", test: 9, half: 18, annual: 50, project: 9 }
-        ],
-        coCurricular: [
-            { activity: "🎭 Literary", grade: "A", gradeLevel: 80 },
-            { activity: "🎨 Cultural", grade: "A+", gradeLevel: 95 },
-            { activity: "🔭 Scientific", grade: "A+", gradeLevel: 90 },
-            { activity: "✏️ Creative Arts", grade: "A", gradeLevel: 82 },
-            { activity: "⚽ Sports & Games", grade: "B+", gradeLevel: 70 },
-            { activity: "🌟 Club / Ojas", grade: "A", gradeLevel: 78 }
-        ],
-        personalQualities: [
-            { quality: "Regularity & Punctuality", grade: "A+", gradeLevel: 90 },
-            { quality: "Cleanliness", grade: "A+", gradeLevel: 95 },
-            { quality: "Discipline / Diligence", grade: "A", gradeLevel: 80 },
-            { quality: "Spirit of Co-operation", grade: "A", gradeLevel: 82 },
-            { quality: "Leadership Ability", grade: "B+", gradeLevel: 72 },
-            { quality: "Environmental Sensitivity", grade: "A", gradeLevel: 79 },
-            { quality: "Truthfulness & Honesty", grade: "A+", gradeLevel: 92 }
-        ]
-    };
-    res.render('Marksheet', data)  
-  }catch(err){
-    console.error(err)
-    res.status(500).json({
-      success: false,
-      message: err.message,
-    });
-  }
-})
 
 // ─────────────────────────────────────────────
 // @route   GET /api/students/:id
@@ -148,7 +84,7 @@ router.get('/:id', async (req, res) => {
 // @route   PUT /api/marksheet/:id
 // @desc    Edit / Update marksheet by ID
 // ─────────────────────────────────────────────
-router.put('/marksheet/:id', async (req, res) => {
+/*router.put('/marksheet/:id', async (req, res) => {
     try {
         let incomingData = req.body;
 
@@ -169,7 +105,7 @@ router.put('/marksheet/:id', async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
-});
+});*/
 
 // ─────────────────────────────────────────────
 // @route   PUT /api/students/:id
@@ -267,6 +203,64 @@ router.get('/student/:class', async (req, res) => {
       data: classstudentdetail,
     });
   } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+router.get("/marksheet/:id", async (req, res) => {
+  try {
+    console.log("Fetching marksheet for student ID:", req.params.id);
+
+    const student = await Student.findById(req.params.id).lean();
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: 'No student found with this ID',
+      });
+    }
+
+    console.log("Student Data Fetched:", student.student_name);
+
+    student.section = student.section || 'A';
+    student.scholastic_marks = student.scholastic_marks || {};
+
+    if (!student.co_scholastic_grades) {
+      student.co_scholastic_grades = {
+        literary_skills: 'A',
+        regularity: 'A+',
+        environmental_consciousness: 'A',
+        scientific_skills: 'A',
+        punctuality: 'A+',
+        leadership_qualities: 'A',
+        cultural_skills: 'A',
+        cleanliness: 'A+',
+        truthfulness: 'A+',
+        creativity: 'A',
+        discipline: 'A',
+        honesty: 'A+',
+        sports: 'A',
+        co_operation: 'A+',
+        expressive: 'A'
+      };
+    }
+
+    if (!student.attendance) student.attendance = '195/220';
+    if (!student.class_teacher_remark) student.class_teacher_remark = 'Excellent Performance';
+
+    const data = {
+      logo: LOGO,
+      session: '2025 - 2026',
+      student
+    };
+
+    res.render('Marksheet', data);
+
+  } catch (err) {
+    console.error("Error generating marksheet:", err);
     res.status(500).json({
       success: false,
       message: err.message,

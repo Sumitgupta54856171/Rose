@@ -10,7 +10,7 @@ const studentSchema = new mongoose.Schema(
     section: {
       type: String,
       trim: true,
-      default: null,        
+      default: 'A',        
     },
     roll_number: {
       type: String,
@@ -20,7 +20,7 @@ const studentSchema = new mongoose.Schema(
     scholar_no: {
       type: String,
       required: true,
-      unique: true,
+      unique: true, // Scholar No. unique hona theek hai
       trim: true,
     },
     student_name: {
@@ -55,7 +55,7 @@ const studentSchema = new mongoose.Schema(
     },
     aadhar_number: {
       type: String,
-      unique: true,
+      // unique: true HATA DIYA HAI, kyunki bohot se bacchon ka "N/A" hai
       trim: true,
       default:"N/A"
     },
@@ -74,6 +74,24 @@ const studentSchema = new mongoose.Schema(
       trim: true,
       default: 'N/A',        
     },
+    
+    // ==========================================
+    // NAYE FIELDS (MARKS AUR REMARKS KE LIYE)
+    // ==========================================
+    scholastic_marks: {
+      type: Object, // 'Object' type se hum isme dynamic subjects (Hindi, English, etc.) save/fetch kar sakte hain
+      default: {}
+    },
+    attendance: {
+      type: String,
+      trim: true,
+      default: "N/A"
+    },
+    class_teacher_remark: {
+      type: String,
+      trim: true,
+      default: ""
+    }
   },
   {
     timestamps: true,

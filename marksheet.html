@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Progress Card - Rose Convent High School</title>
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* A4 Page Setup */
+        .a4-container {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            padding: 12mm 15mm;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .logo-placeholder svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .school-name {
+            color: #0056b3;
+            font-size: 26pt;
+            font-weight: 900;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .school-address {
+            color: #000;
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .dise-code {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+        .card-title {
+            background-color: #0056b3;
+            color: white;
+            font-size: 16pt;
+            font-weight: bold;
+            padding: 8px;
+            margin-top: 15px;
+            border-radius: 4px;
+            border: 2px solid #003d82;
+            text-transform: uppercase;
+        }
+
+        /* Tables Common Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            border: 2px solid #000;
+            padding: 8px 6px;
+            text-align: center;
+            font-size: 13pt; /* Large font size as requested */
+            font-weight: bold;
+        }
+
+        .text-left {
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        /* Specific Table Adjustments */
+        .student-info th {
+            width: 16.66%;
+            background-color: #f0f8ff;
+        }
+
+        .marks-table th {
+            background-color: #f0f8ff;
+        }
+
+        .co-scholastic th {
+            background-color: #f0f8ff;
+            font-size: 12pt;
+        }
+
+        .total-row {
+            background-color: #e6f2ff;
+        }
+
+        /* Footer Styling */
+        .footer-section {
+            margin-top: auto; /* Pushes footer to the bottom */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-top: 10px;
+        }
+
+        .remarks-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14pt;
+            font-weight: bold;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 50px;
+            padding: 0 20px;
+        }
+
+        .sig-block {
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sig-line {
+            width: 200px;
+            border-top: 2px solid #000;
+            margin-bottom: 5px;
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16pt;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .print-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Print Media Queries */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .a4-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 10mm;
+                width: 100%;
+                height: 100%;
+                /* Using exact A4 dimensions */
+                width: 210mm;
+                height: 297mm;
+                page-break-after: avoid;
+            }
+            .print-btn {
+                display: none;
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn" onclick="window.print()">Print Marksheet</button>
+
+    <div class="a4-container">
+        
+        <!-- Header Section -->
+        <div class="header">
+            <div class="dise-code">Dise Code : 1</div>
+            <div class="logo-placeholder">
+                <!-- SVG Logo mimicking a school badge -->
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/0000/svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#0056b3" stroke-width="5"/>
+                    <circle cx="50" cy="50" r="35" fill="none" stroke="#0056b3" stroke-width="2"/>
+                    <path d="M50 20 L80 80 L20 80 Z" fill="#f0f8ff" stroke="#0056b3" stroke-width="3"/>
+                    <text x="50" y="65" font-size="12" text-anchor="middle" fill="#0056b3" font-weight="bold">RCHS</text>
+                </svg>
+            </div>
+            <h1 class="school-name">Rose Convent High School</h1>
+            <p class="school-address">DILAURA, SATNA (M.P.)</p>
+            <div class="card-title">STUDENT PROGRESS CARD (SESSION : 2024-25)</div>
+        </div>
+
+        <!-- Student Details Table -->
+        <table class="student-info">
+            <tr>
+                <th class="text-left">Roll Number</th>
+                <td colspan="2">620</td>
+                <th class="text-left">Scholar Number</th>
+                <td colspan="2">31</td>
+            </tr>
+            <tr>
+                <th class="text-left">Name of Student</th>
+                <td colspan="5" class="text-left">Tripati Gupta</td>
+            </tr>
+            <tr>
+                <th class="text-left">Father's Name</th>
+                <td colspan="5" class="text-left">Shivam Gupta</td>
+            </tr>
+            <tr>
+                <th class="text-left">Mother's Name</th>
+                <td colspan="5" class="text-left">Shashi Gupta</td>
+            </tr>
+            <tr>
+                <th class="text-left">Date of Birth</th>
+                <td>05/02/2013</td>
+                <th class="text-left">In words</th>
+                <td colspan="3" class="text-left">Fifth February Two Thousand Thirteen</td>
+            </tr>
+            <tr>
+                <th class="text-left">Class</th>
+                <td colspan="2">Class - 6</td>
+                <th class="text-left">Section</th>
+                <td colspan="2">Section - A</td>
+            </tr>
+            <tr>
+                <th class="text-left">Gender</th>
+                <td colspan="2">Female</td>
+                <th class="text-left">Category</th>
+                <td colspan="2">Gen.</td>
+            </tr>
+            <tr>
+                <th class="text-left">SSSM ID</th>
+                <td>199242051</td>
+                <th class="text-left">Aadhaar Number</th>
+                <td>N/A</td>
+                <th class="text-left">Medium</th>
+                <td>ENGLISH</td>
+            </tr>
+        </table>
+
+        <!-- Scholastic Performance Table -->
+        <table class="marks-table">
+            <tr>
+                <th rowspan="2">Subjects</th>
+                <th colspan="3">Half Yearly Evaluation</th>
+                <th colspan="3">Annual Evaluation</th>
+                <th colspan="3">Final Assessment</th>
+            </tr>
+            <tr>
+                <th>Max.</th>
+                <th>Obt.</th>
+                <th>Grade</th>
+                <th>Max.</th>
+                <th>Obt.</th>
+                <th>Grade</th>
+                <th>Max.</th>
+                <th>Obt.</th>
+                <th>Grade</th>
+            </tr>
+            <tr>
+                <td class="text-left">English</td>
+                <td>40</td><td>36</td><td>A+</td>
+                <td>60</td><td>56</td><td>A+</td>
+                <td>100</td><td>92</td><td>A+</td>
+            </tr>
+            <tr>
+                <td class="text-left">Hindi</td>
+                <td>40</td><td>35</td><td>A+</td>
+                <td>60</td><td>56</td><td>A+</td>
+                <td>100</td><td>91</td><td>A+</td>
+            </tr>
+            <tr>
+                <td class="text-left">Mathematics</td>
+                <td>40</td><td>32</td><td>A</td>
+                <td>60</td><td>53</td><td>A+</td>
+                <td>100</td><td>85</td><td>A+</td>
+            </tr>
+            <tr>
+                <td class="text-left">Science</td>
+                <td>40</td><td>33</td><td>A</td>
+                <td>60</td><td>55</td><td>A+</td>
+                <td>100</td><td>88</td><td>A+</td>
+            </tr>
+            <tr>
+                <td class="text-left">Social Science</td>
+                <td>40</td><td>36</td><td>A+</td>
+                <td>60</td><td>54</td><td>A+</td>
+                <td>100</td><td>90</td><td>A+</td>
+            </tr>
+            <tr>
+                <td class="text-left">Sanskrit</td>
+                <td>40</td><td>36</td><td>A+</td>
+                <td>60</td><td>43</td><td>B+</td>
+                <td>100</td><td>79</td><td>B+</td>
+            </tr>
+            <tr class="total-row">
+                <th class="text-left">Total</th>
+                <th>240</th><th>208</th><th>A+</th>
+                <th>360</th><th>317</th><th>A+</th>
+                <th>600</th><th>525</th><th>A+</th>
+            </tr>
+        </table>
+
+        <!-- Co-Scholastic Performance Table -->
+        <table class="co-scholastic">
+            <tr>
+                <th colspan="6">Performance in Co-Scholastic Areas :</th>
+            </tr>
+            <tr>
+                <th colspan="2">Co-Curricular Activities</th>
+                <th colspan="2">Performance in Co-Scholastic Areas</th>
+                <th colspan="2">Social Activities</th>
+            </tr>
+            <tr>
+                <td class="text-left">LITERARY SKILLS</td><td>A+</td>
+                <td class="text-left">REGULARITY</td><td>A+</td>
+                <td class="text-left">ENVIRONMENTAL CONSCIOUSNESS</td><td>A</td>
+            </tr>
+            <tr>
+                <td class="text-left">SCIENTIFIC SKILLS</td><td>A</td>
+                <td class="text-left">PUNCTUALITY</td><td>A</td>
+                <td class="text-left">LEADERSHIP QUALITIES</td><td>A+</td>
+            </tr>
+            <tr>
+                <td class="text-left">CULTURAL SKILLS</td><td>A</td>
+                <td class="text-left">CLEANLINESS</td><td>A</td>
+                <td class="text-left">TRUTHFULNESS</td><td>A+</td>
+            </tr>
+            <tr>
+                <td class="text-left">CREATIVITY</td><td>A</td>
+                <td class="text-left">DISCIPLINE</td><td>A+</td>
+                <td class="text-left">HONESTY</td><td>A</td>
+            </tr>
+            <tr>
+                <td class="text-left">SPORTS</td><td>A+</td>
+                <td class="text-left">CO-OPERATION</td><td>A+</td>
+                <td class="text-left">EXPRESSIVE</td><td>A+</td>
+            </tr>
+        </table>
+
+        <!-- Final Result Table -->
+        <table class="marks-table">
+            <tr>
+                <th rowspan="2" style="width: 15%;" class="text-left">Final Result :</th>
+                <th>Max. Marks</th>
+                <td>600</td>
+                <th>Obt. Marks</th>
+                <td>525</td>
+                <th>Result</th>
+                <td>PASS</td>
+            </tr>
+            <tr>
+                <th>Percentage</th>
+                <td>87.5 %</td>
+                <th>Grade</th>
+                <td>A+</td>
+                <th>Attendance</th>
+                <td>195</td>
+            </tr>
+        </table>
+
+        <!-- Footer Section (Remarks & Signatures) -->
+        <div class="footer-section">
+            <div class="remarks-row">
+                <div>Class Teacher Remark : <span style="font-weight: normal;">Outstanding</span></div>
+                <div>Promoted to : <span style="font-weight: normal;">Class - _______</span></div>
+            </div>
+
+            <div class="signatures">
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    Class Teacher
+                </div>
+                
+                <div class="sig-block">
+                    <!-- School Seal space -->
+                    <div style="color: rgba(0,0,0,0.2); margin-bottom: 20px;">
+                        [ School Seal ]
+                    </div>
+                    <div class="sig-line"></div>
+                    Principal
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/api/students',router)
 const corsOptions = {
-  origin: 'http://localhost:3000', // Change to your frontend domain
+  origin: 'http://localhost:3002', // Change to your frontend domain
   methods: 'GET,POST,PUT,DELETE',
 };
 app.get('/',(req,res)=>{

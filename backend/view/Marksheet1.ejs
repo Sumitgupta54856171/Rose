@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Convent School — Premium Marksheet</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Nunito:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #1A0A2E;
+    --navy-mid:    #2E1650;
+    --navy-light:  #4A2A7C;
+    --gold:        #C8972A;
+    --gold-bright: #E5B94A;
+    --gold-pale:   #F7E9C0;
+    --gold-wash:   #FDF6E3;
+    --crimson:     #B01C2E;
+    --rose:        #D4436A;
+    --rose-light:  #F0A0B8;
+    --white:       #FFFFFF;
+    --off:         #FDF8FC;
+    --off2:        #F5EEF5;
+    --border:      #D6C8D0;
+    --text:        #1A1A1A;
+    --text-mid:    #444444;
+    --text-soft:   #777777;
+    --r:           5px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: radial-gradient(ellipse at 30% 20%, #103960 0%, #1A0A2E 50%, #0A0518 100%);
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    /* Yeh property print me background colors laane ke liye zaroori hai */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-btn {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: var(--gold);
+    color: var(--navy);
+    border: none;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  /* ═══════════════════════════════
+     PAGE SHELL
+  ═══════════════════════════════ */
+  .page {
+    width: 210mm;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(200,151,42,.3),
+      0 8px 32px rgba(0,0,0,.4),
+      0 32px 80px rgba(0,0,0,.3);
+  }
+
+  /* Outer gold frame */
+  .frame-outer {
+    position: absolute;
+    inset: 7px;
+    border: 1.5px solid var(--gold);
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  /* Inner thin frame */
+  .frame-inner {
+    position: absolute;
+    inset: 11px;
+    border: 0.5px solid rgba(200,151,42,.35);
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  /* ── Corner ornaments (SVG drawn) ── */
+  .corner-ornament {
+    position: absolute;
+    z-index: 60;
+    pointer-events: none;
+  }
+  .co-tl { top: 4px;  left: 4px; }
+  .co-tr { top: 4px;  right: 4px;  transform: scaleX(-1); }
+  .co-bl { bottom: 4px; left: 4px; transform: scaleY(-1); }
+  .co-br { bottom: 4px; right: 4px; transform: scale(-1,-1); }
+
+  /* Side border ornament lines */
+  .side-line-left, .side-line-right {
+    position: absolute;
+    top: 60px; bottom: 60px;
+    width: 3px;
+    z-index: 40;
+    pointer-events: none;
+  }
+  .side-line-left  { left: 9px; background: linear-gradient(180deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent); }
+  .side-line-right { right: 9px; background: linear-gradient(180deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent); }
+
+  /* Watermark background */
+  .watermark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.028;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ═══════════════════════════════
+     HEADER
+  ═══════════════════════════════ */
+  .header {
+    background: linear-gradient(160deg, #1A0A2E 0%, #2E1650 40%, #3D1060 70%, #1A0A2E 100%);
+    padding: 18px 30px 16px;
+    display: grid;
+    grid-template-columns: 90px 1fr 90px;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(200,151,42,.04) 0px, rgba(200,151,42,.04) 1px, transparent 1px, transparent 20px),
+      repeating-linear-gradient(-45deg, rgba(200,151,42,.04) 0px, rgba(200,151,42,.04) 1px, transparent 1px, transparent 20px);
+    z-index: 0;
+  }
+
+  .header > * { position: relative; z-index: 2; }
+
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 80px;
+  }
+
+  .logo-wrap img {
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 2.5px #C8972A, 0 0 0 5px rgba(200,151,42,0.3), 0 0 12px rgba(0,0,0,0.4);
+    display: block;
+  }
+
+  .school-info { text-align: center; }
+
+  .school-est {
+    font-size: 7px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    opacity: 0.7;
+    margin-bottom: 3px;
+  }
+
+  .school-name {
+    font-family: 'Cinzel', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(0,0,0,.4);
+  }
+
+  .school-tagline {
+    font-size: 7.5px;
+    color: var(--gold-bright);
+    letter-spacing: 1.5px;
+    margin-top: 3px;
+    font-weight: 300;
+    font-style: italic;
+    font-family: 'IM Fell English', serif;
+  }
+
+  .school-address {
+    font-size: 7px;
+    color: rgba(255,255,255,.5);
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  .accred-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .accred-ring {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(200,151,42,.08);
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .accred-year {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-bright);
+  }
+
+  .accred-label {
+    font-size: 5.5px;
+    color: rgba(255,255,255,.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .gold-divider {
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold-bright) 50%, var(--gold) 80%, transparent 100%);
+  }
+
+  .title-band {
+    background: var(--gold-wash);
+    border-bottom: 1px solid var(--gold-pale);
+    padding: 8px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .doc-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .doc-title-sub {
+    font-size: 7.5px;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    font-style: italic;
+    font-family: 'IM Fell English', serif;
+  }
+
+  .session-badge {
+    background: var(--navy);
+    color: var(--gold-bright);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-family: 'Cinzel', serif;
+  }
+
+  /* ═══════════════════════════════
+     STUDENT INFO
+  ═══════════════════════════════ */
+  .student-section {
+    padding: 12px 26px;
+    background: var(--white);
+    position: relative;
+    z-index: 2;
+  }
+
+  .student-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px 18px;
+  }
+
+  .student-grid .span2 { grid-column: span 2; }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .field-label {
+    font-size: 6.5px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .field-value {
+    border-bottom: 1px solid var(--border);
+    height: 18px;
+    font-size: 9px;
+    color: var(--text);
+    position: relative;
+  }
+
+  .field-value::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 26px;
+    margin: 0;
+  }
+
+  .div-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .div-label {
+    font-family: 'Cinzel', serif;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .div-diamond {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════
+     MARKS TABLE
+  ═══════════════════════════════ */
+  .table-section { padding: 0 26px; }
+
+  .marks-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.8px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .marks-table thead tr.hrow1 th {
+    background: var(--navy);
+    color: var(--gold-bright);
+    font-family: 'Cinzel', serif;
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 8px 6px;
+    text-align: center;
+    border: 1px solid rgba(200,151,42,.2);
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+
+  .marks-table thead tr.hrow1 th:first-child {
+    text-align: left;
+    padding-left: 12px;
+    border-radius: var(--r) 0 0 0;
+  }
+
+  .marks-table thead tr.hrow1 th:last-child {
+    border-radius: 0 var(--r) 0 0;
+  }
+
+  .marks-table thead tr.hrow2 th {
+    background: #EFF3F9;
+    color: var(--navy-light);
+    font-size: 6.5px;
+    font-weight: 700;
+    padding: 4px 6px;
+    text-align: center;
+    border: 1px solid #D8DEEA;
+    font-style: italic;
+    letter-spacing: 0.3px;
+  }
+
+  .marks-table tbody tr:nth-child(odd) td  { background: var(--white); }
+  .marks-table tbody tr:nth-child(even) td { background: var(--off); }
+  .marks-table tbody tr:last-child td:first-child { border-radius: 0; }
+
+  .marks-table tbody td {
+    padding: 7.5px 6px;
+    border: 1px solid #E8E4DC;
+    text-align: center;
+    color: var(--text-mid);
+    font-size: 8px;
+    vertical-align: middle;
+  }
+
+  .marks-table tbody td.sub-name {
+    text-align: left;
+    padding-left: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 8.2px;
+  }
+
+  .sub-num {
+    display: inline-flex;
+    width: 16px; height: 16px;
+    background: var(--navy);
+    color: var(--gold-bright);
+    border-radius: 3px;
+    font-size: 7px;
+    font-weight: 800;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    font-family: 'Cinzel', serif;
+    flex-shrink: 0;
+    vertical-align: middle;
+  }
+
+  .marks-table tfoot td {
+    background: linear-gradient(90deg, var(--navy) 0%, var(--navy-mid) 100%);
+    color: var(--gold-bright);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 8.5px;
+    letter-spacing: 0.8px;
+    padding: 9px 6px;
+    text-align: center;
+    border: 1px solid rgba(200,151,42,.25);
+  }
+
+  .marks-table tfoot td:first-child {
+    text-align: left;
+    padding-left: 12px;
+  }
+
+  /* ═══════════════════════════════
+     LOWER PANELS
+  ═══════════════════════════════ */
+  .lower-panels {
+    padding: 10px 26px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+
+  .panel-head {
+    padding: 6px 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .panel-head.blue { background: linear-gradient(90deg, var(--navy) 0%, var(--navy-mid)); }
+  .panel-head.gold-head { background: linear-gradient(90deg, #8B6914, var(--gold)); }
+  .panel-head-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-bright); opacity: .7; }
+
+  .panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.5px;
+  }
+
+  .panel-table thead th {
+    background: var(--off2);
+    color: var(--text-soft);
+    font-size: 6.8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .panel-table thead th:last-child { text-align: center; width: 44px; }
+  .panel-table tbody tr { border-bottom: 1px solid #EEEAE2; }
+  .panel-table tbody tr:last-child { border-bottom: none; }
+  .panel-table tbody tr:nth-child(even) td { background: var(--off); }
+
+  .panel-table tbody td {
+    padding: 5.5px 10px;
+    font-size: 7.5px;
+    color: var(--text-mid);
+  }
+
+  .panel-table tbody td:last-child {
+    text-align: center;
+    border-left: 1px solid var(--border);
+    color: var(--text-soft);
+    font-size: 7px;
+  }
+
+  .p-num { color: var(--gold); font-weight: 800; margin-right: 4px; font-size: 7px; }
+
+  /* ═══════════════════════════════
+     GRADE SCALE
+  ═══════════════════════════════ */
+  .grade-section { padding: 10px 26px 0; }
+
+  .grade-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .grade-header-line { flex: 1; height: 1px; background: var(--border); }
+  .grade-header-label {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .grade-row {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+
+  .grade-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7px 4px;
+    border-right: 1px solid var(--border);
+    transition: transform .15s;
+  }
+
+  .grade-cell:last-child { border-right: none; }
+  .grade-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .grade-pct {
+    font-size: 6.5px;
+    color: var(--text-soft);
+    text-align: center;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  .g1 { background: #E8F9EF; } .g1 .grade-letter { color: #0A6E36; }
+  .g2 { background: #EDF9F2; } .g2 .grade-letter { color: #158A44; }
+  .g3 { background: #EEF4FF; } .g3 .grade-letter { color: #1244A8; }
+  .g4 { background: #F2F6FF; } .g4 .grade-letter { color: #1A55BE; }
+  .g5 { background: #FFFBEE; } .g5 .grade-letter { color: #9A6800; }
+  .g6 { background: #FFF8E6; } .g6 .grade-letter { color: #B07400; }
+  .g7 { background: #FFF0EE; } .g7 .grade-letter { color: #B83020; }
+  .g8 { background: #FFECEE; } .g8 .grade-letter { color: #A01828; }
+
+  /* ═══════════════════════════════
+     NOTE + RESULT
+  ═══════════════════════════════ */
+  .note-result { padding: 8px 26px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .note-box {
+    background: #FFFBF0;
+    border: 1px solid #EED890;
+    border-left: 3px solid var(--gold);
+    border-radius: var(--r);
+    padding: 7px 11px;
+    font-size: 7px;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .note-box strong { color: var(--gold); }
+
+  .result-box {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: var(--r);
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .result-row-item { display: flex; flex-direction: column; gap: 2px; }
+
+  .result-row-label {
+    font-size: 6.5px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    opacity: .8;
+  }
+
+  .result-row-field {
+    border-bottom: 1px solid rgba(200,151,42,.4);
+    height: 16px;
+    font-size: 9px;
+    color: rgba(255,255,255,.9);
+  }
+
+  /* ═══════════════════════════════
+     SIGNATURES & FOOTER
+  ═══════════════════════════════ */
+  .sig-section {
+    padding: 12px 30px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: 10px;
+  }
+
+  .sig-block { display: flex; flex-direction: column; align-items: center; }
+
+  .sig-area {
+    width: 130px; height: 30px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  .sig-title {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  .sig-sub { font-size: 6.5px; color: var(--text-soft); text-align: center; margin-top: 1px; }
+
+  .center-seal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .seal-outer {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gold-wash);
+    position: relative;
+  }
+
+  .seal-inner {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 1px dashed var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .seal-text {
+    font-family: 'Cinzel', serif;
+    font-size: 5.5px;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .footer-band {
+    background: var(--navy);
+    padding: 6px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-size: 7px;
+    color: rgba(255,255,255,.4);
+    letter-spacing: 0.5px;
+    font-style: italic;
+    font-family: 'IM Fell English', serif;
+  }
+
+  .footer-gold-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* PRINT SETTINGS */
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+    .no-print {
+      display: none !important;
+    }
+    .page {
+      box-shadow: none;
+      margin: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<% 
+  function getGrade(percentage) {
+    if (percentage >= 86) return { grade: 'A+', color: '#0A6E36' };
+    if (percentage >= 76) return { grade: 'A', color: '#0D7A4A' };
+    if (percentage >= 66) return { grade: 'B+', color: '#1A55BE' };
+    if (percentage >= 56) return { grade: 'B', color: '#1A55BE' };
+    if (percentage >= 51) return { grade: 'C+', color: '#9A6800' };
+    if (percentage >= 46) return { grade: 'C', color: '#B07400' };
+    if (percentage >= 33) return { grade: 'D', color: '#B83020' };
+    return { grade: 'E', color: '#A01828' };
+  }
+
+  let grandTotal = 0;
+  let totalMaxMarks = marks.length * 100;
+  let totalTest = 0, totalHalf = 0, totalAnnual = 0, totalProject = 0;
+
+  marks.forEach(m => {
+    m.total = m.test + m.half + m.annual + m.project;
+    grandTotal += m.total;
+    totalTest += m.test;
+    totalHalf += m.half;
+    totalAnnual += m.annual;
+    totalProject += m.project;
+    m.gradeInfo = getGrade((m.total / 100) * 100);
+  });
+
+  let overallPercentage = Math.round((grandTotal / totalMaxMarks) * 100);
+  let overallGradeInfo = getGrade(overallPercentage);
+  let passStatus = overallPercentage >= 33 ? 'PASS' : 'FAIL';
+%>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ Print Marksheet</button>
+
+<div class="page">
+  <div class="frame-outer"></div>
+  <div class="frame-inner"></div>
+  <div class="side-line-left"></div>
+  <div class="side-line-right"></div>
+
+  <div class="corner-ornament co-tl">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L20 4" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M4 4 L4 20" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 8 L16 8" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <path d="M8 8 L8 16" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#C8972A"/>
+      <circle cx="8" cy="8" r="1.5" fill="#C8972A" opacity=".4"/>
+    </svg>
+  </div>
+  <div class="corner-ornament co-tr">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L20 4" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M4 4 L4 20" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 8 L16 8" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <path d="M8 8 L8 16" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#C8972A"/>
+      <circle cx="8" cy="8" r="1.5" fill="#C8972A" opacity=".4"/>
+    </svg>
+  </div>
+  <div class="corner-ornament co-bl">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L20 4" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M4 4 L4 20" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 8 L16 8" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <path d="M8 8 L8 16" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#C8972A"/>
+      <circle cx="8" cy="8" r="1.5" fill="#C8972A" opacity=".4"/>
+    </svg>
+  </div>
+  <div class="corner-ornament co-br">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 L20 4" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M4 4 L4 20" stroke="#C8972A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 8 L16 8" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <path d="M8 8 L8 16" stroke="#C8972A" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+      <circle cx="4" cy="4" r="2.5" fill="#C8972A"/>
+      <circle cx="8" cy="8" r="1.5" fill="#C8972A" opacity=".4"/>
+    </svg>
+  </div>
+
+  <div class="watermark">
+    <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="130" stroke="#1A0A2E" stroke-width="10"/>
+      <circle cx="150" cy="150" r="100" stroke="#1A0A2E" stroke-width="5"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6" transform="rotate(45 150 150)"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6" transform="rotate(90 150 150)"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6" transform="rotate(135 150 150)"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6" transform="rotate(180 150 150)"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6" transform="rotate(225 150 150)"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6" transform="rotate(270 150 150)"/>
+      <ellipse cx="150" cy="80" rx="20" ry="38" fill="#C8972A" opacity=".6" transform="rotate(315 150 150)"/>
+      <circle cx="150" cy="150" r="28" fill="#C8972A"/>
+      <circle cx="150" cy="150" r="16" fill="#1A0A2E"/>
+      <text x="150" y="240" text-anchor="middle" font-family="Cinzel" font-size="16" font-weight="700" fill="#1A0A2E" letter-spacing="4">ROSE CONVENT</text>
+    </svg>
+  </div>
+
+  <div class="header">
+    <div class="logo-wrap">
+      <img src="/image/LOGO.jpg.jpeg" alt="Rose Convent High School Logo" style="width:72px;height:72px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px #C8972A, 0 0 0 4px rgba(200,151,42,0.3);"/>
+    </div>
+    <div class="school-info">
+      <div class="school-est">AFFILIATED TO STATE BOARD</div>
+      <div class="school-name">ROSE CONVENT HIGH SCHOOL</div>
+      <div class="school-tagline">"Bloom in Knowledge · Grow in Grace · Shine in Service"</div>
+      <div class="school-address">Satna (M.P.) · Pin: 485 001 · Ph: 07672-XXXXXX</div>
+    </div>
+    <div class="accred-badge">
+      <div class="accred-ring">
+        <div class="accred-year"><%= overallGradeInfo.grade %></div>
+        <div class="accred-label">GRADE</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gold-divider"></div>
+
+  <div class="title-band">
+    <div>
+      <div class="doc-title">Official Mark Sheet</div>
+      <div class="doc-title-sub">Annual Academic Performance Record — Pre-Primary (LKG-UKG)</div>
+    </div>
+    <div class="session-badge">Session <%= session %></div>
+  </div>
+
+  <div class="student-section">
+    <div class="student-grid">
+      <div class="field-group span2">
+        <div class="field-label">Student Full Name</div>
+        <div class="field-value" style="font-weight:700;font-size:11px;color:#1A0A2E;"><%= student.name %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Roll Number</div>
+        <div class="field-value" style="font-weight:600;"><%= student.rollNo %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Father's Name</div>
+        <div class="field-value" style="font-weight:600;"><%= student.fathersName %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Mother's Name</div>
+        <div class="field-value" style="font-weight:600;"><%= student.mothersName %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Class &amp; Section</div>
+        <div class="field-value" style="font-weight:700;color:#1A0A2E;"><%= student.classSection %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Date of Birth (Figures)</div>
+        <div class="field-value" style="font-weight:600;letter-spacing:0.5px;"><%= student.dob %></div>
+      </div>
+      <div class="field-group span2">
+        <div class="field-label">Date of Birth (In Words)</div>
+        <div class="field-value" style="font-style:italic;color:#2E1650;font-weight:500;"><%= student.dobWords %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Scholar Reg. No.</div>
+        <div class="field-value" style="font-weight:600;"><%= student.scholarNo %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Aadhaar ID</div>
+        <div class="field-value" style="letter-spacing:1px;"><%= student.aadhaarId %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Apar ID</div>
+        <div class="field-value"><%= student.aparId %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Samagra ID</div>
+        <div class="field-value"><%= student.samagraId %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Caste</div>
+        <div class="field-value"><%= student.caste %></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Dise Code</div>
+        <div class="field-value"><%= student.diseCode %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="div-diamond"></div>
+    <div class="div-line"></div>
+    <div class="div-label">Academic Assessment — 3 Main Subjects</div>
+    <div class="div-line"></div>
+    <div class="div-diamond"></div>
+  </div>
+
+  <div class="table-section">
+    <table class="marks-table">
+      <thead>
+        <tr class="hrow1">
+          <th style="width:26%">Subject</th>
+          <th style="width:7%">Max<br>Marks</th>
+          <th style="width:11%">Monthly<br>Test</th>
+          <th style="width:13%">Half Yearly<br>Exam</th>
+          <th style="width:13%">Annual<br>Written</th>
+          <th style="width:12%">Project /<br>Practical</th>
+          <th style="width:9%">Total<br>Obtained</th>
+          <th style="width:9%">%</th>
+          <th style="width:8%">Grade</th>
+        </tr>
+        <tr class="hrow2">
+          <th></th>
+          <th></th>
+          <th>/ 10</th>
+          <th>/ 20</th>
+          <th>/ 60</th>
+          <th>/ 10</th>
+          <th>/ 100</th>
+          <th></th>
+          <th>Consol.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% marks.forEach(function(m, index) { %>
+        <tr>
+          <td class="sub-name"><span class="sub-num"><%= index + 1 %></span><%= m.subject %></td>
+          <td>100</td>
+          <td><%= m.test %></td>
+          <td><%= m.half %></td>
+          <td><%= m.annual %></td>
+          <td><%= m.project %></td>
+          <td style="font-weight:bold"><%= m.total %></td>
+          <td><%= m.total %>%</td>
+          <td style="font-weight:700;color:<%= m.gradeInfo.color %>;"><%= m.gradeInfo.grade %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Grand Total</td>
+          <td><%= totalMaxMarks %></td>
+          <td><%= totalTest %>/<%= marks.length * 10 %></td>
+          <td><%= totalHalf %>/<%= marks.length * 20 %></td>
+          <td><%= totalAnnual %>/<%= marks.length * 60 %></td>
+          <td><%= totalProject %>/<%= marks.length * 10 %></td>
+          <td style="font-size:10px;font-weight:900;"><%= grandTotal %></td>
+          <td style="font-size:10px;font-weight:900;"><%= overallPercentage %>%</td>
+          <td style="font-size:10px;font-weight:900;color:<%= overallGradeInfo.color %>;"><%= overallGradeInfo.grade %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="lower-panels">
+    <div class="panel">
+      <div class="panel-head blue">
+        <div class="panel-head-dot"></div>
+        Co-Curricular Activities
+      </div>
+      <table class="panel-table">
+        <thead><tr><th>Activity</th><th>Grade</th></tr></thead>
+        <tbody>
+          <% coCurricular.forEach(function(c) { %>
+          <tr>
+             <td><%= c.activity %></td>
+             <td style="text-align:center;font-weight:700;color:<%= getGrade(c.gradeLevel || 90).color %>;"><%= c.grade %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head gold-head">
+        <div class="panel-head-dot"></div>
+        Personal Social Qualities
+      </div>
+      <table class="panel-table">
+        <thead><tr><th>Quality</th><th>Grade</th></tr></thead>
+        <tbody>
+          <% personalQualities.forEach(function(p, i) { %>
+          <tr>
+             <td><span class="p-num">0<%= i + 1 %></span><%= p.quality %></td>
+             <td style="text-align:center;font-weight:700;color:<%= getGrade(p.gradeLevel || 90).color %>;"><%= p.grade %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grade-section">
+    <div class="grade-header">
+      <div class="grade-header-line"></div>
+      <div class="grade-header-label">Grading Scale Reference</div>
+      <div class="grade-header-line"></div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell g1"><div class="grade-letter">A+</div><div class="grade-pct">Above<br>85%</div></div>
+      <div class="grade-cell g2"><div class="grade-letter">A</div><div class="grade-pct">76–85%</div></div>
+      <div class="grade-cell g3"><div class="grade-letter">B+</div><div class="grade-pct">66–75%</div></div>
+      <div class="grade-cell g4"><div class="grade-letter">B</div><div class="grade-pct">56–65%</div></div>
+      <div class="grade-cell g5"><div class="grade-letter">C+</div><div class="grade-pct">51–55%</div></div>
+      <div class="grade-cell g6"><div class="grade-letter">C</div><div class="grade-pct">46–50%</div></div>
+      <div class="grade-cell g7"><div class="grade-letter">D</div><div class="grade-pct">33–45%</div></div>
+      <div class="grade-cell g8"><div class="grade-letter">E</div><div class="grade-pct">Below<br>33%</div></div>
+    </div>
+  </div>
+
+  <div class="note-result">
+    <div class="note-box">
+      <strong>Note:</strong> Grades in co-scholastic area and personal social qualities are not included in the annual result determination. They reflect the holistic development of the student. This document is an official academic record of Rose Convent High School, Satna (M.P.).
+    </div>
+    <div class="result-box">
+      <div class="result-row-item">
+        <div class="result-row-label">Exam Result &amp; Grade</div>
+        <div class="result-row-field" style="color:<%= overallGradeInfo.color %>;font-weight:700;font-size:11px;">
+            <%= passStatus %> — Grade <%= overallGradeInfo.grade %> (<%= overallPercentage %>%)
+        </div>
+      </div>
+      <div class="result-row-item">
+        <div class="result-row-label">Promoted to Class</div>
+        <div class="result-row-field" style="color:rgba(255,255,255,.9);font-weight:600;"><%= student.promotedTo %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sig-section">
+    <div class="sig-block">
+      <div class="sig-area"></div>
+      <div class="sig-title">Class Teacher</div>
+      <div class="sig-sub">Signature &amp; Date</div>
+    </div>
+
+    <div class="center-seal">
+      <div class="seal-outer">
+        <div class="seal-inner">
+          <div class="seal-text">OFFICIAL<br>SCHOOL<br>SEAL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sig-block">
+      <div class="sig-area"></div>
+      <div class="sig-title">Principal / Head of Institution</div>
+      <div class="sig-sub">Signature, Designation &amp; Stamp</div>
+    </div>
+  </div>
+
+  <div class="footer-gold-line"></div>
+  <div class="footer-band">
+    <div class="footer-text">Rose Convent High School, Satna (M.P.) — Official Academic Record</div>
+    <div class="footer-text">This document is computer generated and valid without physical signature if bearing school seal.</div>
+  </div>
+
+</div>
+</body>
+</html>
