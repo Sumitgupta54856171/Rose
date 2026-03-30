@@ -3,7 +3,25 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 
-const SAMPLE_STUDENTS = [
+interface Student {
+  _id: string;
+  class: string;
+  section: string;
+  roll_number: string;
+  scholar_no: string;
+  student_name: string;
+  mother_name: string;
+  father_name: string;
+  dob: string;
+  dob_in_words: string;
+  caste: string;
+  aadhar_number: string;
+  appar_id: string;
+  samagra_id: string;
+  dis_code: string;
+}
+
+const SAMPLE_STUDENTS: Student[] = [
   {
     _id: "1",
     class: "6", section: "A", roll_number: "613", scholar_no: "432",
@@ -59,20 +77,28 @@ const FIELDS = [
   { key: "dis_code", label: "DIS Code" },
 ];
 
-function getInitials(name) {
-  return name.split(" ").slice(0, 2).map(n => n[0]).join("").toUpperCase();
+function getInitials(name: string): string {
+  return name.split(" ").slice(0, 2).map((n: string) => n[0]).join("").toUpperCase();
 }
 
 const COLORS = ["#FF6B6B","#FF9F43","#F9CA24","#6AB04C","#22A6B3","#4834D4","#BE2EDD","#E84393"];
-function getColor(id) { return COLORS[parseInt(id) % COLORS.length]; }
+function getColor(id: string): string { return COLORS[parseInt(id) % COLORS.length]; }
+
+async function marksheetredirect(id: string): Promise<void> {
+  try {
+    window.location.href = `http://localhost:5000/api/students/marksheet/${id}`;
+  } catch (error) {
+    window.alert("Failed to open marksheet. Please try again later.");
+  }
+}
 
 export default function StudentList() {
 
-  const [students, setStudents] = useState(SAMPLE_STUDENTS);
+  const [students, setStudents] = useState<Student[]>(SAMPLE_STUDENTS);
   const [search, setSearch] = useState("");
-  const [detailStudent, setDetailStudent] = useState(null);
-  const [editStudent, setEditStudent] = useState(null);
-  const [editForm, setEditForm] = useState({});
+  const [detailStudent, setDetailStudent] = useState<Student | null>(null);
+  const [editStudent, setEditStudent] = useState<Student | null>(null);
+  const [editForm, setEditForm] = useState<Partial<Student>>({});
   const [saved, setSaved] = useState(false);
   const studentClass = useParams().class || "";
 
@@ -83,7 +109,7 @@ export default function StudentList() {
     s.scholar_no.includes(search)
   );
 
-  function openEdit(student) {
+  function openEdit(student: Student): void {
     setEditForm({ ...student });
     setEditStudent(student);
     setDetailStudent(null);
@@ -93,27 +119,33 @@ useEffect(()=>{
 
 const studentdetail = async ()=>{
   try{
-    const response = await axios.get(`http://localhost:5000/api/students/student?class=${studentClass}`);
-  console.log(response.data);
-  setStudents(response.data);
+    const response = await axios.get(`http://localhost:5000/api/students/student/${studentClass}`);
+    console.log(response.data);
+    
+    // Extract data from response - API returns { success, count, data: [...] }
+    let studs = SAMPLE_STUDENTS;
+    if (Array.isArray(response.data)) {
+      studs = response.data;
+    } else if (Array.isArray(response.data?.data)) {
+      studs = response.data.data;
+    } else if (Array.isArray(response.data?.students)) {
+      studs = response.data.students;
+    }
+    setStudents(studs);
   }catch(error){
     console.error("Error fetching students:", error);
     window.alert("Failed to fetch students. Please try again later.");
+    setStudents(SAMPLE_STUDENTS); // Fallback to sample data
   }
   
 }
-studentdetail();
+if (studentClass) { // Only fetch if studentClass is available
+  studentdetail();
+}
 
 },[studentClass])
 
-const marksheetredirect =async (id)=>{
-  try{
-   window.location.href=`http://localhost:5000/api/students/marksheet/${id}`;
-  }catch(error){
-    window.alert("Failed to open marksheet. Please try again later.");
-  }
-}
-  async function handleSave() {
+  async function handleSave(): Promise<void> {
     try{
       const response = await axios.put(`http://localhost:5000/api/students/${editForm._id}`, editForm);
       console.log(response.data);
@@ -121,7 +153,7 @@ const marksheetredirect =async (id)=>{
       console.error("Error saving student:", error);
       window.alert("Failed to save student. Please try again later.");
     }
-    setStudents(prev => prev.map(s => s._id === editForm._id ? { ...editForm } : s));
+    setStudents(prev => prev.map(s => s._id === (editForm as Student)._id ? { ...(editForm as Student) } : s));
     setSaved(true);
     setTimeout(() => { setEditStudent(null); setSaved(false); }, 1000);
   }
@@ -239,7 +271,7 @@ const marksheetredirect =async (id)=>{
 
       {/* ── DETAIL MODAL ── */}
       {detailStudent && (
-        <Modal onClose={() => setDetailStudent(null)}>
+        <Modal onClose={() => setDetailStudent(null)} wide={false}>
           <div style={{ padding: "32px 36px" }}>
             {/* Avatar */}
             <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 28 }}>
@@ -284,7 +316,7 @@ const marksheetredirect =async (id)=>{
                     {f.label}
                   </div>
                   <div style={{ fontSize: "0.9rem", color: "#1e293b", fontWeight: 600, wordBreak: "break-all" }}>
-                    {detailStudent[f.key] || "—"}
+                    {detailStudent[f.key as keyof Student] || "—"}
                   </div>
                 </div>
               ))}
@@ -300,7 +332,7 @@ const marksheetredirect =async (id)=>{
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
               <div style={{
                 width: 42, height: 42, borderRadius: "50%",
-                background: `linear-gradient(135deg, ${getColor(editForm._id)}, ${getColor(editForm._id)}88)`,
+                background: `linear-gradient(135deg, ${editForm._id ? getColor(editForm._id) : "#999"}, ${editForm._id ? getColor(editForm._id) + "88" : "#99988"})`,
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "1rem", fontWeight: 700, color: "#fff", flexShrink: 0,
               }}>{getInitials(editForm.student_name || "?")}</div>
@@ -318,7 +350,7 @@ const marksheetredirect =async (id)=>{
                     letterSpacing: "0.1em", textTransform: "uppercase",
                   }}>{f.label}</label>
                   <input
-                    value={editForm[f.key] || ""}
+                    value={(editForm[f.key as keyof Student] as string) || ""}
                     onChange={e => setEditForm(prev => ({ ...prev, [f.key]: e.target.value }))}
                     style={{
                       border: "1.5px solid #e2e8f0",
@@ -366,7 +398,7 @@ const marksheetredirect =async (id)=>{
 }
 
 /* ── ROW COMPONENT ── */
-function StudentRow({ student, idx, color, onDetail, onEdit }) {
+function StudentRow({ student, idx, color, onDetail, onEdit }: { student: Student; idx: number; color: string; onDetail: () => void; onEdit: () => void }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
@@ -394,7 +426,7 @@ function StudentRow({ student, idx, color, onDetail, onEdit }) {
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: "0.75rem", fontWeight: 700, color: "#fff", flexShrink: 0,
         }}>
-          {student.student_name.split(" ").slice(0, 2).map(n => n[0]).join("").toUpperCase()}
+          {student.student_name.split(" ").slice(0, 2).map((n: string) => n[0]).join("").toUpperCase()}
         </div>
         <div>
           <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#1e293b" }}>{student.student_name}</div>
@@ -461,7 +493,13 @@ function StudentRow({ student, idx, color, onDetail, onEdit }) {
 }
 
 /* ── MODAL WRAPPER ── */
-function Modal({ children, onClose, wide }) {
+interface ModalProps {
+  children: React.ReactNode;
+  onClose: () => void;
+  wide: boolean;
+}
+
+function Modal({ children, onClose, wide }: ModalProps) {
   return (
     <div
       onClick={onClose}

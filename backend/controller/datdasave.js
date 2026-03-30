@@ -68,22 +68,22 @@ router.get("/marksheet/:id",async(req,res)=>{
    const data = {
         logo: LOGO,
         session: "2025 - 2026",
-        student: {
-            name: student[0].student_name,
-            rollNo: student[0].roll_number,
-            fathersName: student[0].father_name,
-            mothersName: student[0].mother_name,
-            classSection: `${student[0].class} — ${student[0].section || 'A'}`,
-            dob: student[0].dob,
-            dobWords: student[0].dob_in_words,
-            scholarNo: student[0].scholar_no,
-            aadhaarId: student[0].aadhar_number,
-            aparId: student[0].appar_id,
-            samagraId: student[0].samagra_id,
-            caste: student[0].caste,
-            diseCode: student[0].dis_code,
-            promotedTo: 'UKG' // Default or calculate based on class
-        },
+       student: {
+    name: student.student_name,
+    rollNo: student.roll_number,
+    fathersName: student.father_name,
+    mothersName: student.mother_name,
+    classSection: `${student.class} — ${student.section || 'A'}`,
+    dob: student.dob,
+    dobWords: student.dob_in_words,
+    scholarNo: student.scholar_no,
+    aadhaarId: student.aadhar_number,
+    aparId: student.appar_id,
+    samagraId: student.samagra_id,
+    caste: student.caste,
+    diseCode: student.dis_code,
+    promotedTo: 'UKG'
+},
         // 3 MAIN SUBJECTS FOR LKG-UKG
         marks: [
             { subject: "English (First Lang.)", test: 8, half: 17, annual: 48, project: 9 },
@@ -248,9 +248,11 @@ router.put('/marksheet/:id', async (req, res) => {
     }
 });
 
-router.get('/student', async (req, res) => {
+router.get('/student/:class', async (req, res) => {
   try {
-    const { class: studentClass } = req.query;
+    console.log("code is running")
+    const studentClass  = req.params.class;
+    console.log(studentClass)
     if (!studentClass) {
       return res.status(400).json({
         success: false,
@@ -258,6 +260,7 @@ router.get('/student', async (req, res) => {
       });
     }
     const classstudentdetail = await Student.find({ class: studentClass });
+    console.log(classstudentdetail)
     res.status(200).json({
       success: true,
       count: classstudentdetail.length,

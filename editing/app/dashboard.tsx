@@ -226,7 +226,7 @@ export default function SchoolDashboard() {
                     padding: "8px", color: "#fff",
                     fontSize: "0.75rem", fontWeight: "600",
                     cursor: "pointer", letterSpacing: "0.06em",
-                  }}><Link href={`/students?class=${cls.no}`}>VIEW STUDENTS →</Link></button>
+                  }}><Link href={`/Studentlist/${cls.no}`}>VIEW STUDENTS →</Link></button>
                 </div>
               )}
             </div>
