@@ -84,7 +84,7 @@ router.get('/:id', async (req, res) => {
 // @route   PUT /api/marksheet/:id
 // @desc    Edit / Update marksheet by ID
 // ─────────────────────────────────────────────
-/*router.put('/marksheet/:id', async (req, res) => {
+router.put('/marksheet/:id', async (req, res) => {
     try {
         let incomingData = req.body;
 
@@ -105,7 +105,7 @@ router.get('/:id', async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
-});*/
+});
 
 // ─────────────────────────────────────────────
 // @route   PUT /api/students/:id
@@ -113,6 +113,7 @@ router.get('/:id', async (req, res) => {
 // ─────────────────────────────────────────────
 router.put('/:id', async (req, res) => {
   try {
+    console.log("Update student id:", req.params.id);
     const updated = await Student.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },

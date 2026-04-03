@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Unmapping Certificate</title>
+    <!-- Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a professional certificate look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #e5e7eb; /* gray-200 */
+        }
+        .cert-container {
+            background-color: #fdfbf7; /* Off-white/cream paper feel */
+            font-family: 'Lora', serif;
+        }
+        .font-heading {
+            font-family: 'Cinzel', serif;
+        }
+        /* Custom styles for fill-in-the-blanks */
+        .blank-line {
+            display: inline-block;
+            border-bottom: 1.5px solid #1f2937;
+            margin: 0 4px;
+            color: transparent; /* Hides text if any, acts just as a line */
+            line-height: 1.2;
+        }
+        .blank-long { min-width: 250px; }
+        .blank-med { min-width: 180px; }
+        .blank-short { min-width: 80px; }
+        .blank-date { min-width: 40px; }
+        
+        /* Print optimization */
+        @media print {
+            body { background-color: white; padding: 0; }
+            .cert-container { border: 8px double #000; box-shadow: none; max-width: 100%; width: 100%; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 md:p-8">
+
+    <!-- Certificate Wrapper -->
+    <div class="cert-container border-8 border-double border-gray-800 p-8 md:p-16 max-w-4xl w-full shadow-2xl relative">
+        
+        <!-- Watermark (Optional subtle text in background) -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+            <h1 class="text-6xl md:text-8xl font-heading font-bold text-gray-900 text-center uppercase tracking-widest transform -rotate-12">Rose Convent</h1>
+        </div>
+
+        <div class="relative z-10">
+            <!-- Header Section -->
+            <div class="text-center mb-10">
+                <h1 class="font-heading text-4xl md:text-5xl font-bold text-gray-900 tracking-wide mb-2">
+                    ROSE CONVENT HIGH SCHOOL
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 italic mb-8">
+                    Delaura, Satna (M.P.)
+                </p>
+                
+                <div class="inline-block border-t-2 border-b-2 border-gray-800 py-3 px-8 bg-gray-50">
+                    <h2 class="text-2xl md:text-3xl font-heading font-semibold text-gray-800 tracking-wider">
+                         UNMAPPING CERTIFICATE
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Body Content -->
+            <div class="text-lg md:text-2xl text-gray-800 leading-loose text-justify mb-16 space-y-6">
+                <p>
+                    This is to certify that 
+                    <span class="blank-line blank-long"></span>,
+                </p>
+                <p>
+                    S/o / D/o 
+                    <span class="blank-line blank-long"></span>,
+                </p>
+                <p>
+                    Address: 
+                    <span class="blank-line blank-long" style="width: 60%;"></span>,
+                </p>
+                <p>
+                    Class <span class="blank-line blank-short"></span>, has been successfully unmapped from the school computer system.
+                </p>
+                <p class="font-medium mt-6 text-center italic text-xl">
+                    "No dues are pending against him/her."
+                </p>
+            </div>
+
+            <!-- Footer Section (Date on Left, Principal on Right) -->
+            <div class="flex justify-between items-end mt-20 text-xl md:text-2xl text-gray-800">
+                <!-- Left Side: Date -->
+                <div class="mb-2">
+                    <p>
+                        Date: <span class="blank-line blank-date"></span> / <span class="blank-line blank-date"></span> / <span class="blank-line blank-short"></span>
+                    </p>
+                </div>
+
+                <!-- Right Side: Principal & Seal -->
+                <div class="text-center text-xl">
+                    <div class="mb-4">
+                        <!-- Space for Signature -->
+                        <br><br>
+                    </div>
+                    <div class="border-t border-gray-800 w-48 mx-auto pt-2">
+                        <p class="font-bold uppercase tracking-widest">Principal</p>
+                        <p class="text-sm md:text-base text-gray-600 italic mt-1">(School Seal)</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

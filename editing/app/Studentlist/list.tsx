@@ -86,7 +86,7 @@ function getColor(id: string): string { return COLORS[parseInt(id) % COLORS.leng
 
 async function marksheetredirect(id: string): Promise<void> {
   try {
-    window.location.href = `http://localhost:5000/api/students/marksheet/${id}`;
+    window.location.href = `http://51.77.17.34:5000/api/students/marksheet/${id}`;
   } catch (error) {
     window.alert("Failed to open marksheet. Please try again later.");
   }
@@ -119,8 +119,8 @@ useEffect(()=>{
 
 const studentdetail = async ()=>{
   try{
-    const response = await axios.get(`http://localhost:5000/api/students/student/${studentClass}`);
-    console.log(response.data);
+    const response = await axios.get(`http://51.77.17.34:5000/api/students/student/${studentClass}`);
+    console.log(response.data);4
     
     // Extract data from response - API returns { success, count, data: [...] }
     let studs = SAMPLE_STUDENTS;
@@ -147,13 +147,17 @@ if (studentClass) { // Only fetch if studentClass is available
 
   async function handleSave(): Promise<void> {
     try{
-      const response = await axios.put(`http://localhost:5000/api/students/${editForm._id}`, editForm);
+      const response = await axios.put(`http://51.77.17.34:5000/api/students/${editForm._id}`, editForm);
       console.log(response.data);
     } catch (error) {
       console.error("Error saving student:", error);
       window.alert("Failed to save student. Please try again later.");
     }
-    setStudents(prev => prev.map(s => s._id === (editForm as Student)._id ? { ...(editForm as Student) } : s));
+    const updatedStudent = (editForm as Student);
+    setStudents(prev => prev.map(s => s._id === updatedStudent._id ? { ...updatedStudent } : s));
+    if (detailStudent && detailStudent._id === updatedStudent._id) {
+      setDetailStudent({ ...updatedStudent });
+    }
     setSaved(true);
     setTimeout(() => { setEditStudent(null); setSaved(false); }, 1000);
   }

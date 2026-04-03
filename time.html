@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollments Attendance Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e5e7eb;
+            padding: 2rem 1rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .paper-sheet {
+            background-color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            position: relative;
+        }
+        .handwritten-red {
+            font-family: 'Caveat', cursive;
+            color: #dc2626; /* Red pen color */
+            font-weight: 700;
+        }
+        .handwritten-dark {
+            font-family: 'Caveat', cursive;
+            color: #1f2937; 
+            font-weight: 500;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #1f2937;
+            padding: 0.5rem;
+            vertical-align: middle;
+        }
+        th {
+            text-align: center;
+            font-weight: bold;
+            background-color: #f9fafb;
+        }
+        .header-section {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .date-mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 1.25rem;
+            text-decoration: underline;
+        }
+        .main-title {
+            font-size: 2.5rem;
+            text-decoration: underline;
+            margin-bottom: 0.5rem;
+        }
+        .sub-title {
+            font-size: 1.75rem;
+            text-decoration: underline;
+        }
+        /* Adjusted for 6 columns */
+        .sig-col {
+            width: 9%;
+            min-width: 65px;
+        }
+        .section-divider td {
+            border-top: 3px double #dc2626; /* Double red line separator */
+        }
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 2rem;
+            border-top: 2px solid #dc2626;
+            padding-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper-sheet">
+        <!-- Header Section -->
+       <div class="header-title">
+            <div class="text-xl">Rose Convent High School</div>
+            
+            <div class="text-xl">INTERNAL EXAMINATON IN THE MONTH OF 2026 April</div>
+            <div class="text-lg mt-1">CLASS - ANTT./YTT. </div>
+            <div class="text-base mt-4 text-right w-full flex justify-end pr-4">
+                <span class="H">Batch - IV September 2025 ( Firstear ) </span>
+                <span class="font-bold">TIME - 11:00 AM - 1:00 PM</span>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2" class="w-12">S.NO.</th>
+                    <th rowspan="2" class="text-left w-56 pl-2">Name</th>
+                    <th rowspan="2" class="w-48">Roll No</th>
+                    <th rowspan="2" class="w-20">Course</th>
+                    <th colspan="6">SIGNATURE</th>
+                </tr>
+                <tr>
+                    <!-- 6 Blank Signature Columns Header -->
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Group 1 -->
+                <tr><td class="text-center">1</td><td class="pl-2">Bharti</td><td class="text-center ">MPS 251150510234</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">2</td><td class="pl-2">Prabha Namdeo</td><td class="text-center">MPS 251150510233</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">3</td><td class="pl-2">Sujeet Saket</td><td class="text-center">MPS 251150510232</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">4</td><td class="pl-2">Anju Patel</td><td class="text-center">MPS 251150510231</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">5</td><td class="pl-2">Sudha Chaudhari</td><td class="text-center ">MPS 251150510230</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">6</td><td class="pl-2">Shikha Sen</td><td class="text-center ">MPS 251150510228</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">7</td><td class="pl-2">Geetanjanli Yadav</td><td class="text-center ">Mps 251150510227</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">8</td><td class="pl-2">Jyoti Mishra</td><td class="text-center ">MPS 251150510226</td><td class="text-center">05</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                
+                <!-- Group 2 (Separated by red double line as seen in image) -->
+                <tr class="section-divider">
+                    <td class="text-center">1</td><td class="pl-2">Ravendra Pratap Singh</td><td class="text-center ">MPS 251150810229</td><td class="text-center">08</td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    
+    </div>
+
+</body>
+</html>

@@ -13,22 +13,18 @@ app.set('views', './view');
 app.use(express.static('public'));
 app.use(cors())
 app.use(express.static(path.join(__dirname,'/views')));
-app.use(cors())
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/api/students',router)
-const corsOptions = {
-  origin: 'http://localhost:3002', // Change to your frontend domain
-  methods: 'GET,POST,PUT,DELETE',
-};
+
 app.get('/',(req,res)=>{
     res.json({message:'server is running'})
 })
 
-
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,()=>{
+app.listen(PORT,"0.0.0.0",()=>{
     console.log(`server running on http://localhost:${PORT}`)
     connect()
 })

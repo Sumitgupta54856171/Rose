@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Examination Attendance Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e5e7eb;
+            padding: 2rem 1rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .paper-sheet {
+            background-color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        .red-pen {
+            font-family: 'Caveat', cursive;
+            color: #dc2626; /* Red pen color */
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .H{
+            padding-right: 10PX;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+        }
+        th, td {
+            border: 1px solid #1f2937;
+            padding: 0.4rem;
+            vertical-align: middle;
+        }
+        th {
+            text-align: center;
+            font-weight: bold;
+            background-color: #f9fafb;
+        }
+        .header-title {
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.5;
+            position: relative;
+        }
+        .batch-mark {
+            position: absolute;
+            top: -20px;
+            left: 60%;
+            transform: translateX(-50%);
+        }
+        /* Make signature cells a bit wider */
+        .sig-col {
+            width: 8%;
+            min-width: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper-sheet">
+        <!-- Header Section -->
+        <div class="header-title">
+            <div class="text-xl">Rose Convent High School</div>
+            
+            <div class="text-xl">INTERNAL EXAMINATON IN THE MONTH OF 2026 April</div>
+            <div class="text-lg mt-1">CLASS - ANTT./NTT. </div>
+            <div class="text-base mt-4 text-right w-full flex justify-end pr-4">
+                <span class="H">Batch - I September 2024 ( Secondear ) </span>
+                <span class="font-bold">TIME - 11:00 AM - 1:00 PM</span>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2" class="w-12">S.NO.</th>
+                    <th rowspan="2" class="text-left w-56 pl-2">Names of student</th>
+                    <th rowspan="2" class="w-48">Roll no.</th>
+                    <th colspan="7">SIGNATURE</th>
+                </tr>
+                <tr>
+                    <!-- 7 Blank Signature Columns Header -->
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                    <th class="sig-col">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 21 Students Data -->
+                <tr><td class="text-center">1</td><td class="pl-2">MAHAKBEE</td><td class="text-center">IMPS24115054395</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">2</td><td class="pl-2">LEELA WATI SINGH</td><td class="text-center">IMPS24115054396</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">3</td><td class="pl-2">SHALINI PURWAR</td><td class="text-center">IMPS24115054397</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">4</td><td class="pl-2">SONAM TIWARI</td><td class="text-center">IMPS24115054398</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">5</td><td class="pl-2">PRATIBHA SEN</td><td class="text-center">IMPS24115054399</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">6</td><td class="pl-2">SWEETI NIGAM</td><td class="text-center">IMPS24115054400</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">7</td><td class="pl-2">MANEESHA TIWARI</td><td class="text-center">IMPS24115054401</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">8</td><td class="pl-2">REKHA SINGHRAUL</td><td class="text-center">IMPS24115054402</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">9</td><td class="pl-2">SHIVANI SEN</td><td class="text-center">IMPS24115054403</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">10</td><td class="pl-2">KAVITA SEN</td><td class="text-center">IMPS24115054404</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">11</td><td class="pl-2">ARCHANA DUBE</td><td class="text-center">IMPS24115054405</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">12</td><td class="pl-2">KHUSHI GUPTA</td><td class="text-center">IMPS24115054406</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">13</td><td class="pl-2">SUSHMITA SINHA</td><td class="text-center">IMPS24115054408</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">14</td><td class="pl-2">SHIPRA SINGH</td><td class="text-center">IMPS24115054410</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">15</td><td class="pl-2">JYOTI MISHRA</td><td class="text-center">IMPS24115054411</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">16</td><td class="pl-2">ANAMIKA SINGH</td><td class="text-center">IMPS24115054413</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td class="text-center">17</td><td class="pl-2">RIYA TIWARI</td><td class="text-center">IMPS24115054415</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

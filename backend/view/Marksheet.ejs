@@ -78,12 +78,13 @@ const subjectNames = Object.keys(subjects);
     <div class="inner-border">
         
         <div class="header">
-            <div class="logo">LOGO</div>
+      <img src="/image/LOGO.jpg.jpeg" alt="Rose Convent High School Logo" style="width:72px;height:72px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px #C8972A, 0 0 0 4px rgba(200,151,42,0.3);"/>
+
             <div class="school-info">
                 <div class="school-name">Rose Convent High School</div>
                 <div class="school-address">DILAURA, SATNA (M.P.)</div>
             </div>
-            <div class="dise-code">Dise Code : 1</div>
+            <div class="dise-code">Dise Code : 23130731404</div>
         </div>
 
         <div class="session-banner">
@@ -120,7 +121,7 @@ const subjectNames = Object.keys(subjects);
             </tr>
             <tr>
                 <th>Class</th>
-                <td>Class - <%= student.class || 'N/A' %></td>
+                <td><%= student.class || 'N/A' %></td>
                 <th>Section</th>
                 <td colspan="2">Section - <%= student.section || 'A' %></td>
             </tr>
@@ -235,7 +236,6 @@ const subjectNames = Object.keys(subjects);
                 <th class="text-center">Result</th>
                 <th class="text-center">Percentage</th>
                 <th class="text-center">Grade</th>
-                <th class="text-center">Attendance</th>
             </tr>
             <tr class="text-center" style="font-weight: bold;">
                 <td><%= totalFinalMax %></td>
@@ -243,7 +243,7 @@ const subjectNames = Object.keys(subjects);
                 <td class="<%= resultClass %>"><%= resultText %></td>
                 <td><%= finalPercentage %> %</td>
                 <td><%= finalGrade %></td>
-                <td><%= student.attendance || '-' %></td>
+               
             </tr>
         </table>
 
