@@ -8,11 +8,11 @@ const fingerprintsavedcontroller = async(req,res)=>{
     const savedfingerprint = new userfingerprint({ fingerprint_data: fingerprint,name:name });
     await savedfingerprint.save();
     console.log("fingerprint data saved")
-    res.send('Fingerprint received');
+    res.send({success:true,message:'Fingerprint received'});
 
   }catch(error){
     console.log(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send({success:false,message:'Internal Server Error'});
   }
 }
 

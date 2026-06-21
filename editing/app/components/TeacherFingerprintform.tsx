@@ -16,7 +16,7 @@ export default function FingerprintScanner() {
     // ✅ FIXED PidOptions - env="PP" for no encryption, proper format
  const pidOptionsXML = `<?xml version="1.0"?>
 <PidOptions ver="1.0">
-  <Opts fCount="1" fType="0" format="0" pidVer="2.0" timeout="30000" posh="UNKNOWN" env="P" />
+  <Opts fCount="1" fType="0" format="0" pidVer="2.0" timeout="30000" posh="UNKNOWN" env="PP"/>
 </PidOptions>`;
 
     try {
