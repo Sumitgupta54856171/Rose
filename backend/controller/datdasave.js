@@ -3,7 +3,9 @@ const router= express.Router()
 const Student = require('../model/Student')
 const Marksheet = require("../model/Marksheet")
 const  {RecalculateMarksheet} = require('../utils/calculator')
-const path = require('path')
+const path = require("path")
+const {fingerprintsavedcontroller} = require("../controller/fingerprintcontroller")
+const {checkfingerprintcontroller} = require("../controller/checkfingerprintcontroller")
 
 router.use(express.static(path.join(__dirname, '../view')))
 router.post('/student', async (req, res) => {
@@ -268,5 +270,8 @@ router.get("/marksheet/:id", async (req, res) => {
     });
   }
 });
+
+router.post('/fingerprint', fingerprintsavedcontroller);
+router.post('/checkfingerprint', checkfingerprintcontroller);
 
 module.exports = router;

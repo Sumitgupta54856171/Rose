@@ -1,10 +1,76 @@
-import React from 'react';
+'use client'
 
-const Marksheet = ({ student }) => {
+interface SubjectMarks {
+  half_yearly?: number;
+  annual?: number;
+}
+
+interface CoScholasticGrades {
+  literary_skills?: string;
+  scientific_skills?: string;
+  cultural_skills?: string;
+  creativity?: string;
+  sports?: string;
+  regularity?: string;
+  punctuality?: string;
+  cleanliness?: string;
+  discipline?: string;
+  co_operation?: string;
+  environmental_consciousness?: string;
+  leadership_qualities?: string;
+  truthfulness?: string;
+  honesty?: string;
+  expressive?: string;
+}
+
+interface StudentData {
+  roll_number?: string;
+  scholar_no?: string;
+  student_name?: string;
+  father_name?: string;
+  mother_name?: string;
+  dob?: string;
+  dob_in_words?: string;
+  class?: string;
+  section?: string;
+  caste?: string;
+  samagra_id?: string;
+  aadhar_number?: string;
+  appar_id?: string;
+  class_teacher_remark?: string;
+  scholastic_marks?: Record<string, SubjectMarks>;
+  co_scholastic_grades?: CoScholasticGrades;
+}
+
+interface MarksheetProps {
+  student: StudentData;
+}
+
+const Marksheet = ({ student }: MarksheetProps) => {
+  // Provide default student data if not provided
+  const studentData: StudentData = student || {
+    roll_number: 'N/A',
+    scholar_no: 'N/A',
+    student_name: 'Student Name',
+    father_name: 'Father Name',
+    mother_name: 'Mother Name',
+    dob: 'N/A',
+    dob_in_words: 'N/A',
+    class: 'N/A',
+    section: 'A',
+    caste: 'N/A',
+    samagra_id: 'N/A',
+    aadhar_number: 'N/A',
+    appar_id: 'N/A',
+    class_teacher_remark: 'Good',
+    scholastic_marks: {},
+    co_scholastic_grades: {},
+  };
+
   // ==========================================
   // AUTOMATIC CALCULATION LOGIC
   // ==========================================
-  const getGrade = (obtained, max) => {
+  const getGrade = (obtained: number | undefined, max: number): string => {
     if (obtained === null || obtained === undefined) return "-";
     let perc = (obtained / max) * 100;
     if (perc >= 91) return "A+";
@@ -17,13 +83,31 @@ const Marksheet = ({ student }) => {
     return "E"; // Fail Grade
   };
 
+  const subjects = studentData.scholastic_marks || {};
+  const subjectNames = Object.keys(subjects);
+
+  // Calculate totals first
   let totalHalfMax = 0, totalHalfObt = 0;
   let totalAnnMax = 0, totalAnnObt = 0;
   let totalFinalMax = 0, totalFinalObt = 0;
 
-  const subjects = student.scholastic_marks || {};
-  const subjectNames = Object.keys(subjects);
+  subjectNames.forEach(sub => {
+    const halfMax = 40;
+    const halfObt = subjects[sub]?.half_yearly || 0;
+    const annMax = 60;
+    const annObt = subjects[sub]?.annual || 0;
+    const finalMax = halfMax + annMax;
+    const finalObt = halfObt + annObt;
 
+    totalHalfMax += halfMax;
+    totalHalfObt += halfObt;
+    totalAnnMax += annMax;
+    totalAnnObt += annObt;
+    totalFinalMax += finalMax;
+    totalFinalObt += finalObt;
+  });
+
+  // Create subject rows after calculating totals
   const subjectRows = subjectNames.map(sub => {
     let halfMax = 40;
     let halfObt = subjects[sub].half_yearly || 0;
@@ -31,10 +115,6 @@ const Marksheet = ({ student }) => {
     let annObt = subjects[sub].annual || 0;
     let finalMax = halfMax + annMax;
     let finalObt = halfObt + annObt;
-
-    totalHalfMax += halfMax; totalHalfObt += halfObt;
-    totalAnnMax += annMax; totalAnnObt += annObt;
-    totalFinalMax += finalMax; totalFinalObt += finalObt;
 
     return (
       <tr key={sub} className="text-center">
@@ -48,8 +128,8 @@ const Marksheet = ({ student }) => {
 
   const co = student.co_scholastic_grades || {};
 
-  let finalPercentage = totalFinalMax > 0 ? ((totalFinalObt / totalFinalMax) * 100).toFixed(2) : 0;
-  let isPass = finalPercentage >= 33;
+  let finalPercentage = totalFinalMax > 0 ? ((totalFinalObt / totalFinalMax) * 100).toFixed(2) : "0";
+  let isPass = parseFloat(finalPercentage) >= 33;
   let resultText = isPass ? "PASS" : "FAIL";
   let resultClass = isPass ? "pass-text" : "fail-text";
   let finalGrade = getGrade(totalFinalObt, totalFinalMax);
@@ -130,48 +210,48 @@ const Marksheet = ({ student }) => {
             <tbody>
               <tr>
                 <th style={{ width: '18%' }}>Roll Number</th>
-                <td style={{ width: '15%' }}>{student.roll_number || 'N/A'}</td>
+                <td style={{ width: '15%' }}>{studentData.roll_number || 'N/A'}</td>
                 <th style={{ width: '18%' }}>Scholar Number</th>
-                <td colSpan={2}>{student.scholar_no || 'N/A'}</td>
-                <td rowSpan={7} style={{ width: '15%', padding: '2px', verticalAlign: 'top' }}>
+                <td colSpan={2 as any}>{studentData.scholar_no || 'N/A'}</td>
+                <td rowSpan={7 as any} style={{ width: '15%', padding: '2px', verticalAlign: 'top' }}>
                   <div className="photo-box">PHOTO</div>
                 </td>
               </tr>
               <tr>
                 <th>Name of Student</th>
-                <td colSpan={4} style={{ fontWeight: 'bold' }}>{student.student_name || 'N/A'}</td>
+                <td colSpan={4 as any} style={{ fontWeight: 'bold' }}>{studentData.student_name || 'N/A'}</td>
               </tr>
               <tr>
                 <th>Father's Name</th>
-                <td colSpan={4}>{student.father_name || 'N/A'}</td>
+                <td colSpan={4 as any}>{studentData.father_name || 'N/A'}</td>
               </tr>
               <tr>
                 <th>Mothers' Name</th>
-                <td colSpan={4}>{student.mother_name || 'N/A'}</td>
+                <td colSpan={4 as any}>{studentData.mother_name || 'N/A'}</td>
               </tr>
               <tr>
                 <th>Date of Birth</th>
-                <td>{student.dob || 'N/A'}</td>
+                <td>{studentData.dob || 'N/A'}</td>
                 <th>in words</th>
-                <td colSpan={2}>{student.dob_in_words || 'N/A'}</td>
+                <td colSpan={2 as any}>{studentData.dob_in_words || 'N/A'}</td>
               </tr>
               <tr>
                 <th>Class</th>
-                <td>{student.class || 'N/A'}</td>
+                <td>{studentData.class || 'N/A'}</td>
                 <th>Section</th>
-                <td colSpan={2}>Section - {student.section || 'A'}</td>
+                <td colSpan={2 as any}>Section - {studentData.section || 'A'}</td>
               </tr>
               <tr>
                 <th>Caste / Category</th>
-                <td>{student.caste || 'N/A'}</td>
+                <td>{studentData.caste || 'N/A'}</td>
                 <th>SSSM ID</th>
-                <td colSpan={2}>{student.samagra_id || 'N/A'}</td>
+                <td colSpan={2 as any}>{studentData.samagra_id || 'N/A'}</td>
               </tr>
               <tr>
                 <th>Aadhaar Number</th>
-                <td>{student.aadhar_number || 'N/A'}</td>
+                <td>{studentData.aadhar_number || 'N/A'}</td>
                 <th>Appar ID</th>
-                <td>{student.appar_id || 'N/A'}</td>
+                <td>{studentData.appar_id || 'N/A'}</td>
                 <th style={{ width: '12%' }}>Medium</th>
                 <td style={{ fontWeight: 'bold' }}>ENGLISH</td>
               </tr>
@@ -184,10 +264,10 @@ const Marksheet = ({ student }) => {
           <table>
             <thead>
               <tr className="bg-light-blue text-center">
-                <th rowSpan={2} className="text-center" style={{ width: '16%' }}>Subjects</th>
-                <th colSpan={3} className="text-center">Half Yearly Evaluation</th>
-                <th colSpan={3} className="text-center">Annual Evaluation</th>
-                <th colSpan={3} className="text-center">Final Assessment</th>
+                <th rowSpan={2 as any} className="text-center" style={{ width: '16%' }}>Subjects</th>
+                <th colSpan={3 as any} className="text-center">Half Yearly Evaluation</th>
+                <th colSpan={3 as any} className="text-center">Annual Evaluation</th>
+                <th colSpan={3 as any} className="text-center">Final Assessment</th>
               </tr>
               <tr className="bg-light-blue text-center">
                 <th className="text-center">Max.</th><th className="text-center">Obt.</th><th className="text-center">Grade</th>
@@ -210,9 +290,9 @@ const Marksheet = ({ student }) => {
           <table>
             <thead>
               <tr>
-                <th colSpan={2} className="text-center bg-light-blue" style={{ width: '33.33%' }}>Co-Curricular Activities</th>
-                <th colSpan={2} className="text-center bg-light-blue" style={{ width: '33.33%' }}></th>
-                <th colSpan={2} className="text-center bg-light-blue" style={{ width: '33.33%' }}>Social Activities</th>
+                <th colSpan={2 as any} className="text-center bg-light-blue" style={{ width: '33.33%' }}>Co-Curricular Activities</th>
+                <th colSpan={2 as any} className="text-center bg-light-blue" style={{ width: '33.33%' }}></th>
+                <th colSpan={2 as any} className="text-center bg-light-blue" style={{ width: '33.33%' }}>Social Activities</th>
               </tr>
             </thead>
             <tbody>
@@ -267,7 +347,7 @@ const Marksheet = ({ student }) => {
           </table>
 
           <div className="footer-remarks">
-            <div>Class Teacher Remark : <span style={{ fontWeight: 'normal' }}>{student.class_teacher_remark || 'Good'}</span></div>
+            <div>Class Teacher Remark : <span style={{ fontWeight: 'normal' }}>{studentData.class_teacher_remark || 'Good'}</span></div>
             <div style={{ marginRight: '20px' }}>Status : <span style={{ fontWeight: 'normal' }}>{promotedText}</span></div>
           </div>
 

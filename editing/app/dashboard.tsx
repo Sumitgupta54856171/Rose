@@ -25,113 +25,133 @@ const stats = [
 ];
 
 export default function SchoolDashboard() {
-  const [activeClass, setActiveClass] = useState(null);
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [activeClass, setActiveClass] = useState<any>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   return (
     <div style={{
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #0f0c29, #302b63, #24243e)",
-      fontFamily: "'Georgia', serif",
-      color: "#fff",
+      background: "#ffffff",
+      fontFamily: "'Segoe UI', 'Roboto', sans-serif",
+      color: "#1a1a1a",
       display: "flex",
       flexDirection: "column",
     }}>
 
       {/* ── TOP HEADER ── */}
       <header style={{
-        background: "rgba(255,255,255,0.04)",
-        backdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(255,255,255,0.1)",
-        padding: "0 40px",
+        background: "#ffffff",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        borderBottom: "1px solid #e5e5e5",
+        padding: "1rem 1.5rem",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        minHeight: "90px",
+        minHeight: "auto",
         position: "sticky",
         top: 0,
         zIndex: 100,
+        flexWrap: "wrap",
+        gap: "1rem",
       }}>
         {/* Left: Logo + Name */}
-        <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1, minWidth: 0 }}>
           <div style={{
-            width: 56, height: 56, borderRadius: "50%",
+            width: 48, height: 48, borderRadius: "50%",
             background: "linear-gradient(135deg, #f9ca24, #f0932b)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 26, boxShadow: "0 4px 20px rgba(249,202,36,0.4)",
+            fontSize: "1.5rem", boxShadow: "0 2px 8px rgba(249,202,36,0.2)",
             flexShrink: 0,
           }}>🌹</div>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <div style={{
-              fontSize: "1.55rem", fontWeight: "700", letterSpacing: "0.04em",
+              fontSize: "clamp(1rem, 4vw, 1.4rem)", fontWeight: "700", letterSpacing: "0.02em",
               background: "linear-gradient(90deg, #f9ca24, #f0932b, #ff6b6b)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              lineHeight: 1.1,
+              lineHeight: 1.2,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
             }}>
               Rose Convent High School
             </div>
-            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.45)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: 2 }}>
+            <div style={{ fontSize: "0.65rem", color: "#666666", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 2, whiteSpace: "nowrap" }}>
               Excellence · Discipline · Knowledge
             </div>
           </div>
         </div>
 
         {/* Right: nav */}
-        <nav style={{ display: "flex", gap: "8px" }}>
+        <nav style={{ 
+          display: "flex", 
+          gap: "8px",
+          flexWrap: "wrap",
+          justifyContent: "flex-end",
+        }}>
           {["Dashboard", "Students", "Attendance", "Reports"].map((item, i) => (
             <button key={item} style={{
-              background: i === 0 ? "linear-gradient(135deg, #f9ca24, #f0932b)" : "rgba(255,255,255,0.07)",
+              background: i === 0 ? "linear-gradient(135deg, #f9ca24, #f0932b)" : "#f5f5f5",
               border: "none", borderRadius: "8px",
-              padding: "8px 18px", color: i === 0 ? "#1a1a2e" : "rgba(255,255,255,0.7)",
-              fontSize: "0.82rem", fontWeight: i === 0 ? "700" : "400",
-              cursor: "pointer", letterSpacing: "0.04em",
+              padding: "8px 14px", color: i === 0 ? "#1a1a1a" : "#333333",
+              fontSize: "clamp(0.7rem, 2vw, 0.82rem)", fontWeight: i === 0 ? "700" : "500",
+              cursor: "pointer", letterSpacing: "0.02em",
               transition: "all 0.2s",
-            }}>{item}</button>
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={e => { if (i !== 0) e.currentTarget.style.background = "#eeeeee"; }}
+            onMouseLeave={e => { if (i !== 0) e.currentTarget.style.background = "#f5f5f5"; }}
+            >{item}</button>
           ))}
         </nav>
       </header>
 
       {/* ── MAIN CONTENT ── */}
-      <main style={{ flex: 1, padding: "36px 40px 0" }}>
+      <main style={{ flex: 1, padding: "clamp(1rem, 4vw, 2rem)", paddingBottom: 0 }}>
 
         {/* Stats Row */}
         <div style={{
-          display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "18px", marginBottom: "36px",
+          display: "grid", 
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", 
+          gap: "1rem", 
+          marginBottom: "2rem",
         }}>
           {stats.map((s, i) => (
             <div key={i} style={{
-              background: "rgba(255,255,255,0.06)",
-              backdropFilter: "blur(12px)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              borderRadius: "16px", padding: "22px 24px",
-              display: "flex", alignItems: "center", gap: "16px",
+              background: "#ffffff",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+              border: "1px solid #e8e8e8",
+              borderRadius: "12px", 
+              padding: "1.5rem",
+              display: "flex", 
+              alignItems: "center", 
+              gap: "1rem",
               transition: "transform 0.2s, box-shadow 0.2s",
               cursor: "default",
             }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(0,0,0,0.3)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.08)"; }}
             >
               <div style={{
-                width: 50, height: 50, borderRadius: "12px",
-                background: "rgba(249,202,36,0.15)",
+                width: 50, height: 50, borderRadius: "10px",
+                background: "#f0f0f0",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 24, flexShrink: 0,
+                fontSize: "1.8rem", flexShrink: 0,
               }}>{s.icon}</div>
               <div>
-                <div style={{ fontSize: "1.6rem", fontWeight: "700", color: "#f9ca24", lineHeight: 1 }}>{s.value}</div>
-                <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", marginTop: 4, letterSpacing: "0.05em" }}>{s.label}</div>
+                <div style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)", fontWeight: "700", color: "#f9ca24", lineHeight: 1 }}>{s.value}</div>
+                <div style={{ fontSize: "0.75rem", color: "#666666", marginTop: 4, letterSpacing: "0.03em" }}>{s.label}</div>
               </div>
             </div>
           ))}
         </div>
 
         {/* Section Title */}
-        <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "22px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "1.5rem" }}>
           <div style={{
-            width: 5, height: 28, borderRadius: 3,
+            width: 4, height: 24, borderRadius: 2,
             background: "linear-gradient(180deg, #f9ca24, #f0932b)",
           }} />
-          <h2 style={{ margin: 0, fontSize: "1.15rem", fontWeight: "600", letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)" }}>
+          <h2 style={{ margin: 0, fontSize: "clamp(1rem, 3vw, 1.15rem)", fontWeight: "700", letterSpacing: "0.04em", textTransform: "uppercase", color: "#1a1a1a" }}>
             Class Overview
           </h2>
         </div>
@@ -139,8 +159,9 @@ export default function SchoolDashboard() {
         {/* Class Grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "18px",
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+          gap: "1.5rem",
+          marginBottom: "2rem",
         }}>
           {classes.map((cls) => (
             <div
@@ -149,18 +170,18 @@ export default function SchoolDashboard() {
               onMouseEnter={() => setHoveredCard(cls.id)}
               onMouseLeave={() => setHoveredCard(null)}
               style={{
-                background: activeClass?.id === cls.id
-                  ? `linear-gradient(135deg, ${cls.color}33, ${cls.color}18)`
-                  : "rgba(255,255,255,0.05)",
-                backdropFilter: "blur(12px)",
-                border: `1.5px solid ${activeClass?.id === cls.id ? cls.color : hoveredCard === cls.id ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.08)"}`,
-                borderRadius: "16px",
-                padding: "22px 20px",
+                background: "#ffffff",
+                boxShadow: activeClass?.id === cls.id
+                  ? "0 8px 24px rgba(0,0,0,0.12)"
+                  : "0 1px 3px rgba(0,0,0,0.08)",
+                border: `1.5px solid ${activeClass?.id === cls.id ? cls.color : hoveredCard === cls.id ? "#d0d0d0" : "#e8e8e8"}`,
+                borderRadius: "12px",
+                padding: "1.5rem",
                 cursor: "pointer",
                 transition: "all 0.25s",
                 transform: hoveredCard === cls.id ? "translateY(-4px)" : "translateY(0)",
-                boxShadow: hoveredCard === cls.id ? `0 16px 40px rgba(0,0,0,0.35)` : "none",
-                position: "relative", overflow: "hidden",
+                position: "relative", 
+                overflow: "hidden",
               }}
             >
               {/* color accent bar top */}
@@ -168,22 +189,23 @@ export default function SchoolDashboard() {
                 position: "absolute", top: 0, left: 0, right: 0,
                 height: "3px",
                 background: `linear-gradient(90deg, ${cls.color}, transparent)`,
-                borderRadius: "16px 16px 0 0",
+                borderRadius: "12px 12px 0 0",
               }} />
 
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1rem" }}>
                 <div style={{
-                  fontSize: "1.25rem", fontWeight: "700", color: "#fff",
+                  fontSize: "clamp(1rem, 3vw, 1.2rem)", fontWeight: "700", color: "#1a1a1a",
                 }}>{cls.name}</div>
                 <div style={{
-                  background: `${cls.color}30`,
-                  border: `1px solid ${cls.color}60`,
+                  background: `${cls.color}15`,
+                  border: `1.5px solid ${cls.color}40`,
                   color: cls.color,
                   borderRadius: "8px",
-                  padding: "3px 10px",
+                  padding: "4px 10px",
                   fontSize: "0.7rem",
                   fontWeight: "600",
-                  letterSpacing: "0.05em",
+                  letterSpacing: "0.02em",
+                  whiteSpace: "nowrap",
                 }}>{cls.students} Students</div>
               </div>
 
@@ -191,13 +213,13 @@ export default function SchoolDashboard() {
               <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                 {cls.sections.map(sec => (
                   <span key={sec} style={{
-                    background: "rgba(255,255,255,0.08)",
-                    border: "1px solid rgba(255,255,255,0.12)",
+                    background: "#f5f5f5",
+                    border: "1px solid #ddd",
                     borderRadius: "6px",
                     padding: "4px 10px",
-                    fontSize: "0.72rem",
-                    color: "rgba(255,255,255,0.7)",
-                    letterSpacing: "0.04em",
+                    fontSize: "0.7rem",
+                    color: "#555",
+                    letterSpacing: "0.02em",
                   }}>Section {sec}</span>
                 ))}
               </div>
@@ -205,28 +227,32 @@ export default function SchoolDashboard() {
               {/* Expanded detail */}
               {activeClass?.id === cls.id && (
                 <div style={{
-                  marginTop: "16px",
-                  paddingTop: "14px",
-                  borderTop: `1px solid ${cls.color}40`,
+                  marginTop: "1rem",
+                  paddingTop: "1rem",
+                  borderTop: `1px solid ${cls.color}30`,
                 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-                    <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>Sections</span>
-                    <span style={{ fontSize: "0.75rem", color: cls.color, fontWeight: "600" }}>{cls.sections.length}</span>
+                    <span style={{ fontSize: "0.75rem", color: "#666" }}>Sections</span>
+                    <span style={{ fontSize: "0.75rem", color: cls.color, fontWeight: "700" }}>{cls.sections.length}</span>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>Avg per Section</span>
-                    <span style={{ fontSize: "0.75rem", color: cls.color, fontWeight: "600" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem" }}>
+                    <span style={{ fontSize: "0.75rem", color: "#666" }}>Avg per Section</span>
+                    <span style={{ fontSize: "0.75rem", color: cls.color, fontWeight: "700" }}>
                       {Math.round(cls.students / cls.sections.length)}
                     </span>
                   </div>
                   <button style={{
-                    marginTop: "12px", width: "100%",
-                    background: `linear-gradient(135deg, ${cls.color}, ${cls.color}aa)`,
+                    width: "100%",
+                    background: `linear-gradient(135deg, ${cls.color}, ${cls.color}cc)`,
                     border: "none", borderRadius: "8px",
-                    padding: "8px", color: "#fff",
+                    padding: "10px", color: "#fff",
                     fontSize: "0.75rem", fontWeight: "600",
-                    cursor: "pointer", letterSpacing: "0.06em",
-                  }}><Link href={`/Studentlist/${cls.no}`}>VIEW STUDENTS →</Link></button>
+                    cursor: "pointer", letterSpacing: "0.04em",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = "scale(1.02)"}
+                  onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+                  ><Link href={`/Studentlist/${cls.no}`} style={{ textDecoration: "none", color: "#fff" }}>VIEW STUDENTS →</Link></button>
                 </div>
               )}
             </div>
@@ -236,38 +262,40 @@ export default function SchoolDashboard() {
 
       {/* ── BOTTOM FOOTER ── */}
       <footer style={{
-        marginTop: "40px",
-        background: "rgba(0,0,0,0.35)",
-        backdropFilter: "blur(20px)",
-        borderTop: "1px solid rgba(255,255,255,0.08)",
-        padding: "0 40px",
+        marginTop: "auto",
+        background: "#f8f8f8",
+        boxShadow: "0 -2px 8px rgba(0,0,0,0.04)",
+        borderTop: "1px solid #e5e5e5",
+        padding: "1rem",
       }}>
         {/* Class name strip */}
         <div style={{
           display: "flex",
           overflowX: "auto",
           gap: "0",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid #e5e5e5",
           scrollbarWidth: "none",
+          marginBottom: "1rem",
+          WebkitOverflowScrolling: "touch",
         }}>
           {classes.map((cls) => (
             <div
               key={cls.id}
               onClick={() => setActiveClass(activeClass?.id === cls.id ? null : cls)}
               style={{
-                padding: "14px 22px",
+                padding: "12px 16px",
                 cursor: "pointer",
                 borderBottom: activeClass?.id === cls.id ? `3px solid ${cls.color}` : "3px solid transparent",
-                color: activeClass?.id === cls.id ? cls.color : "rgba(255,255,255,0.45)",
-                fontSize: "0.8rem",
+                color: activeClass?.id === cls.id ? cls.color : "#999",
+                fontSize: "0.75rem",
                 fontWeight: activeClass?.id === cls.id ? "700" : "400",
-                letterSpacing: "0.06em",
+                letterSpacing: "0.03em",
                 whiteSpace: "nowrap",
                 transition: "all 0.2s",
                 textTransform: "uppercase",
               }}
-              onMouseEnter={e => { if (activeClass?.id !== cls.id) e.currentTarget.style.color = "rgba(255,255,255,0.8)"; }}
-              onMouseLeave={e => { if (activeClass?.id !== cls.id) e.currentTarget.style.color = "rgba(255,255,255,0.45)"; }}
+              onMouseEnter={e => { if (activeClass?.id !== cls.id) e.currentTarget.style.color = "#333"; }}
+              onMouseLeave={e => { if (activeClass?.id !== cls.id) e.currentTarget.style.color = "#999"; }}
             >
               {cls.name}
             </div>
@@ -276,18 +304,24 @@ export default function SchoolDashboard() {
 
         {/* Bottom bar */}
         <div style={{
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "14px 0",
+          display: "flex", 
+          justifyContent: "space-between", 
+          alignItems: "center",
+          padding: "0.75rem 1rem",
+          flexWrap: "wrap",
+          gap: "1rem",
         }}>
-          <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em" }}>
+          <div style={{ fontSize: "0.7rem", color: "#999", letterSpacing: "0.05em" }}>
             © 2025 Rose Convent High School · All Rights Reserved
           </div>
           <div style={{
-            fontSize: "0.72rem", color: "rgba(255,255,255,0.3)",
-            display: "flex", gap: "20px",
+            fontSize: "0.7rem", color: "#999",
+            display: "flex", gap: "12px",
+            flexWrap: "wrap",
+            justifyContent: "center",
           }}>
             <span>Academic Year 2024–25</span>
-            <span style={{ color: "#f9ca2460" }}>|</span>
+            <span style={{ color: "#ddd" }}>|</span>
             <span>Admin Portal v1.0</span>
           </div>
         </div>
